@@ -18,6 +18,7 @@ namespace StudentManagerProject
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
             Console.WriteLine("WTF");
+            Console.WriteLine("Test again");
         }
     }
 }
