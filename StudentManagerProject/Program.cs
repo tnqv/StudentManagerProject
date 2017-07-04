@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace StudentManagerProject
 {
@@ -17,10 +18,6 @@ namespace StudentManagerProject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            Console.WriteLine("WTF");
-            // roi ok doi t xiu
-           
-            Console.WriteLine("Test again");
         }
     }
 }
