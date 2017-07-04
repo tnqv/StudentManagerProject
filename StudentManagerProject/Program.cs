@@ -20,6 +20,7 @@ namespace StudentManagerProject
             Console.WriteLine("WTF");
             // roi ok doi t xiu
            
+            Console.WriteLine("Test again");
         }
     }
 }
