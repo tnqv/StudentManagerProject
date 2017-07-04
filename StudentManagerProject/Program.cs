@@ -18,6 +18,8 @@ namespace StudentManagerProject
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
             Console.WriteLine("WTF");
+            // roi ok doi t xiu
+           
         }
     }
 }
