@@ -19,7 +19,8 @@ namespace StudentManagerProject
             Application.Run(new Form1());
             Console.WriteLine("WTF");
             // roi ok doi t xiu
-           
+           //la sao, ong chon may cai do la gi
+           // mai t giai thich cho ok
             Console.WriteLine("Test again");
         }
     }
