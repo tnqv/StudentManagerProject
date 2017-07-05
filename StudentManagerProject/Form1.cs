@@ -90,5 +90,23 @@ namespace StudentManagerProject
                 MessageBox.Show("Failed Action");
             }
         }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = dataGridView1.CurrentRow.Index;
+            this.textBox1.Text = dataGridView1.Rows[index].Cells[1].Value.ToString();
+            this.textBox2.Text = dataGridView1.Rows[index].Cells[2].Value.ToString();
+            this.textBox3.Text = dataGridView1.Rows[index].Cells[3].Value.ToString();
+            this.textBox4.Text = dataGridView1.Rows[index].Cells[4].Value.ToString();
+            if (bool.Parse(dataGridView1.Rows[index].Cells[5].Value.ToString())) 
+            {
+                this.radioButton1.Checked = true ;
+            }
+            else
+            {
+                this.radioButton2.Checked = true;
+            }
+            this.textBox5.Text = dataGridView1.Rows[index].Cells[6].Value.ToString();
+        }
     }
 }
