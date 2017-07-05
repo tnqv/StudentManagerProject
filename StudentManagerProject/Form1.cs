@@ -66,5 +66,29 @@ namespace StudentManagerProject
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string studentID= this.textBox1.Text;
+            string firstname = this.textBox2.Text;
+            string lastname = this.textBox3.Text;
+            DateTime birthdate = DateTime.Parse(this.textBox4.Text);
+            bool sex = false;
+            if (this.radioButton1.Checked)
+            {
+                sex = true;
+            }
+            string majorID = this.textBox5.Text;
+            TblStudents.TblStudentsDAO dao = new TblStudents.TblStudentsDAO();
+            bool result= dao.Add(studentID, firstname, lastname, birthdate, sex, majorID);
+            if (result)
+            {
+                MessageBox.Show("Add Successfully");
+            }
+            else
+            {
+                MessageBox.Show("Failed Action");
+            }
+        }
     }
 }
