@@ -16,7 +16,7 @@ namespace StudentManagerProject
             string datasource = @"localhost\SQLEXPRESS";
             string database = "StudentsDB";
             string username = "sa";
-            string password = "blazblue22";
+            string password = "Bikhung101";
             return DBSQLServerUtils.GetDBConnection(datasource, database, username, password);
         }
 
