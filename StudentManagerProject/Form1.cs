@@ -8,20 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 
 namespace StudentManagerProject
 {
-    public partial class Form1 : Form
+    public partial class StudentManageForm : Form
     {
         public SqlDataAdapter adapter;
         public DataTable data;
         bool isAddItem = false;
         TblStudents.TblStudentsDAO dao;
-        public Form1()
+        public StudentManageForm()
         {
             InitializeComponent();
+            dataGridStudent.DefaultCellStyle.SelectionBackColor = dataGridStudent.DefaultCellStyle.BackColor;
+            dataGridStudent.DefaultCellStyle.SelectionForeColor = dataGridStudent.DefaultCellStyle.ForeColor;
             dao = new TblStudents.TblStudentsDAO();
+            this.radioButton1.Checked = true;
         }
 
         private void initialDataTable()
@@ -58,19 +62,34 @@ namespace StudentManagerProject
         {
             int currentIndex = dataGridStudent.CurrentCell.RowIndex;
             int studentId = Convert.ToInt32(dataGridStudent.Rows[currentIndex].Cells[0].Value.ToString());
-            if (dao.DeleteStudent(studentId))
+            string studentCode = dataGridStudent.Rows[currentIndex].Cells[1].Value.ToString();
+            if (MessageBox.Show("Are you sure want to delete " + studentCode + " ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
-                MessageBox.Show("Deleted Successfully");
+                try
+                {
+                    if (dao.DeleteStudent(studentId))
+                    {
+                        MessageBox.Show("Deleted Successfully");
+                        loadData();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Deleted error ! Something occured" + ex.Message);
+                }
             }
-            else {
-                MessageBox.Show("Deleted error ! Something occured");
+            else
+            {
+                return;
             }
-            loadData();
+            
         }
+       
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -88,7 +107,6 @@ namespace StudentManagerProject
             this.txtStudentId.Text = "";
             this.txtFirstname.Text = "";
             this.txtLastname.Text = "";
-            this.txtBirthdate.Text = "";
             this.radioButton1.Checked = true;
             this.txtMajorID.Text = "";
         }
@@ -100,8 +118,9 @@ namespace StudentManagerProject
             btnAdd.Enabled = false;
             btnEdit.Enabled = false;
             btnRemove.Enabled = false;
+            dataGridStudent.Enabled = false;
             isAddItem = true;
-            
+            clearTextBox();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -110,7 +129,7 @@ namespace StudentManagerProject
             this.txtStudentId.Text = dataGridStudent.Rows[index].Cells[1].Value.ToString();
             this.txtFirstname.Text = dataGridStudent.Rows[index].Cells[2].Value.ToString();
             this.txtLastname.Text = dataGridStudent.Rows[index].Cells[3].Value.ToString();
-            this.txtBirthdate.Text = dataGridStudent.Rows[index].Cells[4].Value.ToString();
+            this.birthdatePicker.Value = DateTime.Parse(dataGridStudent.Rows[index].Cells[4].Value.ToString());
             if (bool.Parse(dataGridStudent.Rows[index].Cells[5].Value.ToString())) 
             {
                 this.radioButton1.Checked = true ;
@@ -137,49 +156,115 @@ namespace StudentManagerProject
             string studentID = this.txtStudentId.Text;
             string firstname = this.txtFirstname.Text;
             string lastname = this.txtLastname.Text;
-            DateTime birthdate = DateTime.Parse(this.txtBirthdate.Text);
+            DateTime birthdate = DateTime.Parse(this.birthdatePicker.Value.ToString());
             bool sex = false;
             if (this.radioButton1.Checked)
             {
                 sex = true;
             }
             string majorID = this.txtMajorID.Text;
-
-            bool result = dao.Update(Id,studentID, firstname, lastname, birthdate, sex, majorID);
-            if (result)
+            try
             {
-                MessageBox.Show("Updated Successfully");
+                bool result = dao.Update(Id, studentID, firstname, lastname, birthdate, sex, majorID);
+                if (result)
+                {
+                    MessageBox.Show("Updated Successfully");
+                }
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show("Updated failed");
+                MessageBox.Show("Updated failed" + e.Message);
             }
+            
         }
         private void addNewStudent()
         {
             string studentID = this.txtStudentId.Text;
             string firstname = this.txtFirstname.Text;
             string lastname = this.txtLastname.Text;
-            DateTime birthdate = DateTime.Parse(this.txtBirthdate.Text);
+            DateTime birthdate = DateTime.Parse(this.birthdatePicker.Value.ToString());
             bool sex = false;
             if (this.radioButton1.Checked)
             {
                 sex = true;
             }
             string majorID = this.txtMajorID.Text;
-            
-            bool result = dao.Add(studentID, firstname, lastname, birthdate, sex, majorID);
-            if (result)
+            try
             {
-                MessageBox.Show("Added Successfully");
+                bool result = dao.Add(studentID, firstname, lastname, birthdate, sex, majorID);
+                if (result)
+                {
+                    MessageBox.Show("Added Successfully");
+                }
+                else
+                {
+                    MessageBox.Show("Failed Action");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Added failed " + e.Message);
+            }
+            
+        }
+
+        private bool validateForm()
+        {
+            bool isInvalidInput = false;
+            if (String.IsNullOrEmpty(txtStudentId.Text.ToString()))
+            {
+                errorStudentID.SetError(txtStudentId, "Do not leave empty field");
+                isInvalidInput = true;
+            }
+            if (String.IsNullOrEmpty(txtFirstname.Text.ToString()))
+            {
+                errorStudentID.SetError(txtFirstname, "Do not leave empty field");
+                isInvalidInput = true;
+            }
+            if (String.IsNullOrEmpty(txtLastname.Text.ToString()))
+            {
+                errorStudentID.SetError(txtLastname, "Do not leave empty field");
+                isInvalidInput = true;
+            }
+            if (String.IsNullOrEmpty(txtMajorID.Text.ToString()))
+            {
+                errorStudentID.SetError(txtMajorID, "Do not leave empty field");
+                isInvalidInput = true;
+            }
+            if (txtStudentId.TextLength < 0 && txtStudentId.TextLength > 7)
+            {
+                errorStudentID.SetError(txtStudentId, "Invalid length");
+                isInvalidInput = true;
+            }
+            try
+            {
+                Regex studentIdExpressionPattern = new Regex("^SE[0-9]{5,7}");
+                Match result = studentIdExpressionPattern.Match(txtStudentId.Text.ToString());
+                if (!result.Success)
+                {
+                    errorStudentID.SetError(txtStudentId, "Wrong format of Student id ( must be SEXXXXX )");
+                    isInvalidInput = true;
+                }
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                errorStudentID.SetError(txtStudentId, "Something occure" + e.Message);
+                isInvalidInput = true;
+            }
+            return isInvalidInput;
+        }
+
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (validateForm()) {
+                return;
             }
             else
             {
-                MessageBox.Show("Failed Action");
+                errorStudentID.Dispose();
             }
-        }
-        private void btnSave_Click(object sender, EventArgs e)
-        {
             if (isAddItem == true)
             {
                 addNewStudent();
@@ -190,6 +275,7 @@ namespace StudentManagerProject
                 btnRemove.Enabled = true;
                 btnSave.Enabled = false;
                 isAddItem = false;
+                dataGridStudent.Enabled = true;
             }
             else
             {
@@ -200,7 +286,7 @@ namespace StudentManagerProject
                 btnEdit.Enabled = true;
                 btnRemove.Enabled = true;
                 btnSave.Enabled = false;
-
+                dataGridStudent.Enabled = true;
             }
         }
 
@@ -211,6 +297,7 @@ namespace StudentManagerProject
             btnEdit.Enabled = false;
             btnRemove.Enabled = false;
             btnSave.Enabled = true;
+            dataGridStudent.Enabled = false;
         }
 
         private void btnDestroy_Click(object sender, EventArgs e)

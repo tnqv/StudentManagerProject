@@ -1,6 +1,6 @@
 ﻿namespace StudentManagerProject
 {
-    partial class Form1
+    partial class StudentManageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridStudent = new System.Windows.Forms.DataGridView();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -36,10 +37,10 @@
             this.btnDestroy = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.panelInput = new System.Windows.Forms.Panel();
+            this.birthdatePicker = new System.Windows.Forms.DateTimePicker();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.txtMajorID = new System.Windows.Forms.TextBox();
-            this.txtBirthdate = new System.Windows.Forms.TextBox();
             this.txtLastname = new System.Windows.Forms.TextBox();
             this.txtFirstname = new System.Windows.Forms.TextBox();
             this.txtStudentId = new System.Windows.Forms.TextBox();
@@ -49,8 +50,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.errorStudentID = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStudent)).BeginInit();
             this.panelInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorStudentID)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridStudent
@@ -64,13 +67,13 @@
             this.dataGridStudent.ReadOnly = true;
             this.dataGridStudent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridStudent.ShowEditingIcon = false;
-            this.dataGridStudent.Size = new System.Drawing.Size(684, 150);
+            this.dataGridStudent.Size = new System.Drawing.Size(684, 185);
             this.dataGridStudent.TabIndex = 0;
             this.dataGridStudent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(25, 221);
+            this.btnAdd.Location = new System.Drawing.Point(25, 241);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 1;
@@ -80,7 +83,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(143, 221);
+            this.btnEdit.Location = new System.Drawing.Point(143, 241);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 2;
@@ -90,7 +93,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(273, 221);
+            this.btnRemove.Location = new System.Drawing.Point(273, 241);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(75, 23);
             this.btnRemove.TabIndex = 3;
@@ -100,7 +103,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(391, 221);
+            this.btnSave.Location = new System.Drawing.Point(391, 241);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 4;
@@ -110,17 +113,17 @@
             // 
             // btnDestroy
             // 
-            this.btnDestroy.Location = new System.Drawing.Point(510, 221);
+            this.btnDestroy.Location = new System.Drawing.Point(510, 241);
             this.btnDestroy.Name = "btnDestroy";
             this.btnDestroy.Size = new System.Drawing.Size(75, 23);
             this.btnDestroy.TabIndex = 5;
-            this.btnDestroy.Text = "Destroy";
+            this.btnDestroy.Text = "Clear";
             this.btnDestroy.UseVisualStyleBackColor = true;
             this.btnDestroy.Click += new System.EventHandler(this.btnDestroy_Click);
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(634, 221);
+            this.btnExit.Location = new System.Drawing.Point(634, 241);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 6;
@@ -130,10 +133,10 @@
             // 
             // panelInput
             // 
+            this.panelInput.Controls.Add(this.birthdatePicker);
             this.panelInput.Controls.Add(this.radioButton2);
             this.panelInput.Controls.Add(this.radioButton1);
             this.panelInput.Controls.Add(this.txtMajorID);
-            this.panelInput.Controls.Add(this.txtBirthdate);
             this.panelInput.Controls.Add(this.txtLastname);
             this.panelInput.Controls.Add(this.txtFirstname);
             this.panelInput.Controls.Add(this.txtStudentId);
@@ -145,13 +148,23 @@
             this.panelInput.Controls.Add(this.label1);
             this.panelInput.Location = new System.Drawing.Point(753, 30);
             this.panelInput.Name = "panelInput";
-            this.panelInput.Size = new System.Drawing.Size(254, 214);
+            this.panelInput.Size = new System.Drawing.Size(251, 209);
             this.panelInput.TabIndex = 20;
+            // 
+            // birthdatePicker
+            // 
+            this.birthdatePicker.CustomFormat = "dd/MM/yyyy";
+            this.birthdatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.birthdatePicker.Location = new System.Drawing.Point(91, 115);
+            this.birthdatePicker.Name = "birthdatePicker";
+            this.birthdatePicker.Size = new System.Drawing.Size(133, 20);
+            this.birthdatePicker.TabIndex = 33;
+            this.birthdatePicker.Value = new System.DateTime(2017, 7, 10, 0, 0, 0, 0);
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(165, 147);
+            this.radioButton2.Location = new System.Drawing.Point(165, 154);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(59, 17);
             this.radioButton2.TabIndex = 32;
@@ -162,7 +175,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(91, 147);
+            this.radioButton1.Location = new System.Drawing.Point(91, 154);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(48, 17);
             this.radioButton1.TabIndex = 31;
@@ -172,17 +185,10 @@
             // 
             // txtMajorID
             // 
-            this.txtMajorID.Location = new System.Drawing.Point(91, 178);
+            this.txtMajorID.Location = new System.Drawing.Point(91, 183);
             this.txtMajorID.Name = "txtMajorID";
             this.txtMajorID.Size = new System.Drawing.Size(133, 20);
             this.txtMajorID.TabIndex = 30;
-            // 
-            // txtBirthdate
-            // 
-            this.txtBirthdate.Location = new System.Drawing.Point(91, 115);
-            this.txtBirthdate.Name = "txtBirthdate";
-            this.txtBirthdate.Size = new System.Drawing.Size(133, 20);
-            this.txtBirthdate.TabIndex = 29;
             // 
             // txtLastname
             // 
@@ -208,7 +214,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(30, 178);
+            this.label6.Location = new System.Drawing.Point(30, 186);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 25;
@@ -217,7 +223,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(30, 147);
+            this.label5.Location = new System.Drawing.Point(30, 154);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(25, 13);
             this.label5.TabIndex = 24;
@@ -226,7 +232,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 115);
+            this.label4.Location = new System.Drawing.Point(30, 121);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 23;
@@ -259,11 +265,15 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "StudentID";
             // 
-            // Form1
+            // errorStudentID
+            // 
+            this.errorStudentID.ContainerControl = this;
+            // 
+            // StudentManageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1019, 265);
+            this.ClientSize = new System.Drawing.Size(1016, 271);
             this.Controls.Add(this.panelInput);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnDestroy);
@@ -272,12 +282,13 @@
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridStudent);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "StudentManageForm";
+            this.Text = "Student Management";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStudent)).EndInit();
             this.panelInput.ResumeLayout(false);
             this.panelInput.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorStudentID)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -295,7 +306,6 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.TextBox txtMajorID;
-        private System.Windows.Forms.TextBox txtBirthdate;
         private System.Windows.Forms.TextBox txtLastname;
         private System.Windows.Forms.TextBox txtFirstname;
         private System.Windows.Forms.TextBox txtStudentId;
@@ -305,6 +315,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ErrorProvider errorStudentID;
+        private System.Windows.Forms.DateTimePicker birthdatePicker;
     }
 }
 

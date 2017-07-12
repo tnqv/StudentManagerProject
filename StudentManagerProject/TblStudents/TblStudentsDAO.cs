@@ -24,8 +24,8 @@ namespace StudentManagerProject.TblStudents
             }
             catch (Exception e)
             {
-                Console.WriteLine("Sorry , cannot Delete! Error! Canceling request!" + e.Message);
-                return false;
+                throw new Exception("Cannot delete , error occured" + e.Message);
+                
             }
         }
 
@@ -46,8 +46,7 @@ namespace StudentManagerProject.TblStudents
             }
             catch (Exception e)
             {
-                Console.WriteLine("Sorry , cannot Update! Error! Canceling request!" + e.Message);
-                return false;
+                throw new Exception("Cannot update , error occured" + e.Message);
             }
         }
 
@@ -70,8 +69,8 @@ namespace StudentManagerProject.TblStudents
             }
             catch (Exception e)
             {
-                Console.WriteLine("Sorry cannot add more! Error! Canceling request!" + e.Message);
-                return false;
+                throw new Exception("Cannot Add , error occured" + e.Message);
+                
             }
         }
 
