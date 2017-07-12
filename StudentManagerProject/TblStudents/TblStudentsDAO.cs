@@ -29,6 +29,23 @@ namespace StudentManagerProject.TblStudents
             }
         }
 
+        public bool checkDuplicateStudentCode(string studentId)
+        {
+            SqlConnection con = DBUtils.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM tbl_students WHERE studentId = @studentId");
+            cmd.Parameters.AddWithValue("@studentId", studentId);
+            DataTable table = DBUtils.ExecuteQuery(cmd, con);
+            if (table != null)
+            {
+                if (table.Rows.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
         public bool Update(int id,string studentID, string firstname, string lastname, DateTime birthdate, bool sex, string majorID)
         {
             try {

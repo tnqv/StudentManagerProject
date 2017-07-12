@@ -49,7 +49,7 @@ namespace StudentManagerProject
                 con.Open();
                 cmd.Connection = con;
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.Fill(table); 
+                adapter.Fill(table);
             }
             catch (Exception e)
             {

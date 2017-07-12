@@ -189,6 +189,7 @@ namespace StudentManagerProject
                 sex = true;
             }
             string majorID = this.txtMajorID.Text;
+            
             try
             {
                 bool result = dao.Add(studentID, firstname, lastname, birthdate, sex, majorID);
@@ -267,6 +268,12 @@ namespace StudentManagerProject
             }
             if (isAddItem == true)
             {
+                string studentID = this.txtStudentId.Text;
+                if (dao.checkDuplicateStudentCode(studentID))
+                {
+                    MessageBox.Show("\" " + studentID + "\" is already existed");
+                    return;
+                }
                 addNewStudent();
                 loadData();
                 panelInput.Enabled = false;
