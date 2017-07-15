@@ -229,15 +229,54 @@ namespace StudentManagerProject
                     isInvalidInput = true;
                 }
             }
+            //REGEX NAME
+            Regex nameExpressionPattern = new Regex("^[A-Za-z\\s]{1,100}$");
+
             if (String.IsNullOrEmpty(txtFirstname.Text.ToString()))
             {
                 errorStudentProvider.SetError(txtFirstname, "Please fill in First Name");
                 isInvalidInput = true;
             }
+            else
+            {
+                try
+                {
+                    Match result = nameExpressionPattern.Match(this.txtFirstname.Text.ToString());
+                    if (!result.Success)
+                    {
+                        errorStudentProvider.SetError(this.txtFirstname, "Name contains up to 100 alphabet letter");
+                        isInvalidInput = true;
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    isInvalidInput = true;
+                }
+            }
             if (String.IsNullOrEmpty(txtLastname.Text.ToString()))
             {
                 errorStudentProvider.SetError(txtLastname, "Please fill in Last Name");
                 isInvalidInput = true;
+            }
+            else
+            {
+                try
+                {
+                    Match result = nameExpressionPattern.Match(this.txtLastname.Text.ToString());
+                    if (!result.Success)
+                    {
+                        errorStudentProvider.SetError(this.txtLastname, "Name contains up to 100 alphabet letter only");
+                        isInvalidInput = true;
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    isInvalidInput = true;
+                }
             }
             if (String.IsNullOrEmpty(txtMajorID.Text.ToString()))
             {

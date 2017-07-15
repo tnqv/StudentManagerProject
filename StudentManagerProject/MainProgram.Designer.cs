@@ -56,10 +56,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStudent)).BeginInit();
             this.panelInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorStudentProvider)).BeginInit();
@@ -77,7 +73,7 @@
             this.dataGridStudent.ReadOnly = true;
             this.dataGridStudent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridStudent.ShowEditingIcon = false;
-            this.dataGridStudent.Size = new System.Drawing.Size(684, 213);
+            this.dataGridStudent.Size = new System.Drawing.Size(674, 213);
             this.dataGridStudent.TabIndex = 0;
             this.dataGridStudent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridStudent_CellClick);
             // 
@@ -87,7 +83,7 @@
             this.btnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnEdit.Location = new System.Drawing.Point(146, 311);
+            this.btnEdit.Location = new System.Drawing.Point(153, 311);
             this.btnEdit.Margin = new System.Windows.Forms.Padding(0);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 31);
@@ -117,7 +113,7 @@
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnSave.Location = new System.Drawing.Point(388, 311);
+            this.btnSave.Location = new System.Drawing.Point(384, 311);
             this.btnSave.Margin = new System.Windows.Forms.Padding(0);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 31);
@@ -132,7 +128,7 @@
             this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnClear.Location = new System.Drawing.Point(509, 311);
+            this.btnClear.Location = new System.Drawing.Point(500, 311);
             this.btnClear.Margin = new System.Windows.Forms.Padding(0);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 31);
@@ -147,7 +143,7 @@
             this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnExit.Location = new System.Drawing.Point(630, 311);
+            this.btnExit.Location = new System.Drawing.Point(614, 311);
             this.btnExit.Margin = new System.Windows.Forms.Padding(0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 31);
@@ -338,7 +334,7 @@
             this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnAdd.Location = new System.Drawing.Point(25, 311);
+            this.btnAdd.Location = new System.Drawing.Point(41, 311);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(0);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 31);
@@ -346,67 +342,6 @@
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.SystemColors.Control;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.button2.Location = new System.Drawing.Point(146, 311);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 31);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Add";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.SystemColors.Control;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button3.Location = new System.Drawing.Point(267, 311);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 31);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Edit";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.SystemColors.Control;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button4.Location = new System.Drawing.Point(388, 311);
-            this.button4.Margin = new System.Windows.Forms.Padding(0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 31);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Remove";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.SystemColors.Control;
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button5.Location = new System.Drawing.Point(509, 311);
-            this.button5.Margin = new System.Windows.Forms.Padding(0);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 31);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Save";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // StudentManageForm
             // 
@@ -420,13 +355,9 @@
             this.Controls.Add(this.panelInput);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.btnRemove);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridStudent);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -470,10 +401,6 @@
         private System.Windows.Forms.DateTimePicker birthdatePicker;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
     }
 }
 
