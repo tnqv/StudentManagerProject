@@ -25,19 +25,19 @@ namespace StudentManagerProject
             dataGridStudent.DefaultCellStyle.SelectionBackColor = dataGridStudent.DefaultCellStyle.BackColor;
             dataGridStudent.DefaultCellStyle.SelectionForeColor = dataGridStudent.DefaultCellStyle.ForeColor;
             dao = new TblStudents.TblStudentsDAO();
-            this.radioButton1.Checked = true;
+            this.radMale.Checked = true;
         }
 
         private void initialDataTable()
         {
             SqlConnection con = DBUtils.GetDBConnection();
             SqlCommand cmd = new SqlCommand("SELECT * FROM tbl_students");
-            data = DBUtils.ExecuteQuery(cmd,con);  
+            data = DBUtils.ExecuteQuery(cmd, con);
         }
 
         private void loadData()
         {
-            
+
             initialDataTable();
             try
             {
@@ -45,98 +45,88 @@ namespace StudentManagerProject
             }
             catch (Exception e)
             {
-                MessageBox.Show("Cannot load data " + e.Message);
+                MessageBox.Show("Data can't be loaded! " + e.Message, "Opps", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dataGridStudent.DataSource = null;
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             loadData();
-            panelInput.Enabled = false;
-            btnSave.Enabled = false;
-            btnEdit.Enabled = false;
+            this.btnSave.Enabled = false;
+            this.btnEdit.Enabled = false;
+            this.btnClear.Enabled = false;
+            this.errorStudentProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            this.disableInput();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnRemove_Click(object sender, EventArgs e)
         {
             int currentIndex = dataGridStudent.CurrentCell.RowIndex;
             int studentId = Convert.ToInt32(dataGridStudent.Rows[currentIndex].Cells[0].Value.ToString());
             string studentCode = dataGridStudent.Rows[currentIndex].Cells[1].Value.ToString();
-            if (MessageBox.Show("Are you sure want to delete " + studentCode + " ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            if (MessageBox.Show("Are you sure to remove " + studentCode + " ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
                     if (dao.DeleteStudent(studentId))
                     {
-                        MessageBox.Show("Deleted Successfully");
+                        MessageBox.Show("Removed Successfully!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         loadData();
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Deleted error ! Something occured" + ex.Message);
+                    MessageBox.Show("Removed failed " + ex.Message, "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
                 return;
             }
-            
-        }
-       
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
 
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
 
         public void clearTextBox()
         {
             this.txtStudentId.Text = "";
             this.txtFirstname.Text = "";
             this.txtLastname.Text = "";
-            this.radioButton1.Checked = true;
+            this.radMale.Checked = true;
             this.txtMajorID.Text = "";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            panelInput.Enabled = true;
-            btnSave.Enabled = true;
-            btnAdd.Enabled = false;
-            btnEdit.Enabled = false;
+            //panelInput.Enabled = true;
+            this.enableInput();
+            this.btnSave.Enabled = true;
+            this.btnAdd.Enabled = false;
+            this.btnEdit.Enabled = false;
             btnRemove.Enabled = false;
+            this.btnClear.Enabled = true;
             dataGridStudent.Enabled = false;
             isAddItem = true;
             clearTextBox();
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridStudent_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int index = dataGridStudent.CurrentRow.Index;
+            this.dataGridStudent.DefaultCellStyle.SelectionBackColor=Color.LightSteelBlue;
             this.txtStudentId.Text = dataGridStudent.Rows[index].Cells[1].Value.ToString();
             this.txtFirstname.Text = dataGridStudent.Rows[index].Cells[2].Value.ToString();
             this.txtLastname.Text = dataGridStudent.Rows[index].Cells[3].Value.ToString();
             this.birthdatePicker.Value = DateTime.Parse(dataGridStudent.Rows[index].Cells[4].Value.ToString());
-            if (bool.Parse(dataGridStudent.Rows[index].Cells[5].Value.ToString())) 
+            if (bool.Parse(dataGridStudent.Rows[index].Cells[5].Value.ToString()))
             {
-                this.radioButton1.Checked = true ;
+                this.radMale.Checked = true;
             }
             else
             {
-                this.radioButton2.Checked = true;
+                this.radFemale.Checked = true;
             }
             this.txtMajorID.Text = dataGridStudent.Rows[index].Cells[6].Value.ToString();
             btnEdit.Enabled = true;
@@ -158,7 +148,7 @@ namespace StudentManagerProject
             string lastname = this.txtLastname.Text;
             DateTime birthdate = DateTime.Parse(this.birthdatePicker.Value.ToString());
             bool sex = false;
-            if (this.radioButton1.Checked)
+            if (this.radMale.Checked)
             {
                 sex = true;
             }
@@ -168,14 +158,14 @@ namespace StudentManagerProject
                 bool result = dao.Update(Id, studentID, firstname, lastname, birthdate, sex, majorID);
                 if (result)
                 {
-                    MessageBox.Show("Updated Successfully");
+                    MessageBox.Show("Updated Successfully!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Updated failed" + e.Message);
+                MessageBox.Show("Updated failed " + e.Message, "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
         private void addNewStudent()
         {
@@ -184,103 +174,126 @@ namespace StudentManagerProject
             string lastname = this.txtLastname.Text;
             DateTime birthdate = DateTime.Parse(this.birthdatePicker.Value.ToString());
             bool sex = false;
-            if (this.radioButton1.Checked)
+            if (this.radMale.Checked)
             {
                 sex = true;
             }
             string majorID = this.txtMajorID.Text;
-            
+
             try
             {
                 bool result = dao.Add(studentID, firstname, lastname, birthdate, sex, majorID);
                 if (result)
                 {
-                    MessageBox.Show("Added Successfully");
+                    MessageBox.Show("Added Successfully!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Failed Action");
+                    MessageBox.Show("Failed Action", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Added failed " + e.Message);
+                MessageBox.Show("Added failed " + e.Message, "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private bool validateForm()
         {
+
+            this.errorStudentProvider.Clear();
             bool isInvalidInput = false;
             if (String.IsNullOrEmpty(txtStudentId.Text.ToString()))
             {
-                errorStudentID.SetError(txtStudentId, "Do not leave empty field");
+                errorStudentProvider.SetError(txtStudentId, "Please fill in StudentID");
                 isInvalidInput = true;
+            }
+            else
+            {
+                //REGEX STUDENT ID
+                try
+                {
+                    Regex studentIdExpressionPattern = new Regex("^[A-Z]{2}[0-9]{5,7}$");
+                    Match result = studentIdExpressionPattern.Match(txtStudentId.Text.ToString());
+                    if (!result.Success)
+                    {
+                        errorStudentProvider.SetError(this.txtStudentId, "Wrong format of StudentID ([majorID][5-7numbers]) \n Ex: SE12345");
+                        isInvalidInput = true;
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                    errorStudentProvider.SetError(txtStudentId, "Error: " + e.Message);
+                    isInvalidInput = true;
+                }
             }
             if (String.IsNullOrEmpty(txtFirstname.Text.ToString()))
             {
-                errorStudentID.SetError(txtFirstname, "Do not leave empty field");
+                errorStudentProvider.SetError(txtFirstname, "Please fill in First Name");
                 isInvalidInput = true;
             }
             if (String.IsNullOrEmpty(txtLastname.Text.ToString()))
             {
-                errorStudentID.SetError(txtLastname, "Do not leave empty field");
+                errorStudentProvider.SetError(txtLastname, "Please fill in Last Name");
                 isInvalidInput = true;
             }
             if (String.IsNullOrEmpty(txtMajorID.Text.ToString()))
             {
-                errorStudentID.SetError(txtMajorID, "Do not leave empty field");
+                errorStudentProvider.SetError(txtMajorID, "Please fill in MajorID");
                 isInvalidInput = true;
             }
-            if (txtStudentId.TextLength < 0 && txtStudentId.TextLength > 7)
+            else
             {
-                errorStudentID.SetError(txtStudentId, "Invalid length");
-                isInvalidInput = true;
-            }
-            try
-            {
-                Regex studentIdExpressionPattern = new Regex("^SE[0-9]{5,7}");
-                Match result = studentIdExpressionPattern.Match(txtStudentId.Text.ToString());
-                if (!result.Success)
+                //REGEX MAJOR ID
+                try
                 {
-                    errorStudentID.SetError(txtStudentId, "Wrong format of Student id ( must be SEXXXXX )");
+                    Regex majorIdExpressionPattern = new Regex("^[A-Z]{2,4}$");
+                    Match result = majorIdExpressionPattern.Match(this.txtMajorID.Text.ToString());
+                    if (!result.Success)
+                    {
+                        errorStudentProvider.SetError(this.txtMajorID, "Wrong format of MajorID (2-4 Uppercase letters) \n Ex: SE");
+                        isInvalidInput = true;
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     isInvalidInput = true;
                 }
             }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine(e.Message);
-                errorStudentID.SetError(txtStudentId, "Something occure" + e.Message);
-                isInvalidInput = true;
-            }
+
             return isInvalidInput;
         }
 
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (validateForm()) {
+            if (validateForm())
+            {
                 return;
             }
             else
             {
-                errorStudentID.Dispose();
+                errorStudentProvider.Dispose();
             }
             if (isAddItem == true)
             {
                 string studentID = this.txtStudentId.Text;
                 if (dao.checkDuplicateStudentCode(studentID))
                 {
-                    MessageBox.Show("\" " + studentID + "\" is already existed");
+                    MessageBox.Show("\" " + studentID + "\" is already existed", "Duplicate ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 addNewStudent();
                 loadData();
-                panelInput.Enabled = false;
-                btnAdd.Enabled = true;
-                btnEdit.Enabled = true;
-                btnRemove.Enabled = true;
-                btnSave.Enabled = false;
+                this.disableInput();
+                this.btnAdd.Enabled = true;
+                this.btnEdit.Enabled = true;
+                this.btnRemove.Enabled = true;
+                this.btnSave.Enabled = false;
                 isAddItem = false;
                 dataGridStudent.Enabled = true;
             }
@@ -288,28 +301,52 @@ namespace StudentManagerProject
             {
                 updateStudent();
                 loadData();
-                panelInput.Enabled = false;
-                btnAdd.Enabled = true;
-                btnEdit.Enabled = true;
-                btnRemove.Enabled = true;
-                btnSave.Enabled = false;
+                this.disableInput();
+                this.btnAdd.Enabled = true;
+                this.btnEdit.Enabled = true;
+                this.btnRemove.Enabled = true;
+                this.btnSave.Enabled = false;
                 dataGridStudent.Enabled = true;
             }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            panelInput.Enabled = true;
-            btnAdd.Enabled = false;
-            btnEdit.Enabled = false;
-            btnRemove.Enabled = false;
-            btnSave.Enabled = true;
+            this.enableInput();
+            this.btnAdd.Enabled = false;
+            this.btnEdit.Enabled = false;
+            this.btnRemove.Enabled = false;
+            this.btnClear.Enabled = true;
+            this.btnSave.Enabled = true;
             dataGridStudent.Enabled = false;
         }
 
-        private void btnDestroy_Click(object sender, EventArgs e)
+        private void btnClear_Click(object sender, EventArgs e)
         {
             clearTextBox();
         }
+
+        private void disableInput()
+        {
+            this.txtStudentId.ReadOnly = true;
+            this.txtMajorID.ReadOnly = true;
+            this.txtLastname.ReadOnly = true;
+            this.txtFirstname.ReadOnly = true;
+            this.birthdatePicker.Enabled = false;
+            this.radMale.Enabled = false;
+            this.radFemale.Enabled = false;
+        }
+
+        private void enableInput()
+        {
+            this.txtStudentId.ReadOnly = false;
+            this.txtMajorID.ReadOnly = false;
+            this.txtLastname.ReadOnly = false;
+            this.txtFirstname.ReadOnly = false;
+            this.birthdatePicker.Enabled = true;
+            this.radMale.Enabled = true;
+            this.radFemale.Enabled = true;
+        }
+
     }
 }
