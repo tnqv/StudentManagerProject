@@ -15,7 +15,6 @@ namespace StudentManagerProject
 {
     public partial class StudentManageForm : Form
     {
-        public SqlDataAdapter adapter;
         public DataTable data;
         bool isAddItem = false;
         TblStudents.TblStudentsDAO dao;
