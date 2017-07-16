@@ -59,6 +59,17 @@ namespace StudentManagerProject
             this.disableInput();
         }
 
+        private void reloadAfterSave()
+        {
+            loadData();
+            this.disableInput();
+            this.btnAdd.Enabled = true;
+            this.btnEdit.Enabled = true;
+            this.btnRemove.Enabled = true;
+            this.btnSave.Enabled = false;
+            dataGridStudent.Enabled = true;
+        }
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
             int currentIndex = dataGridStudent.CurrentCell.RowIndex;
@@ -99,14 +110,13 @@ namespace StudentManagerProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //panelInput.Enabled = true;
             this.enableInput();
             this.btnSave.Enabled = true;
             this.btnAdd.Enabled = false;
             this.btnEdit.Enabled = false;
-            btnRemove.Enabled = false;
+            this.btnRemove.Enabled = false;
             this.btnClear.Enabled = true;
-            dataGridStudent.Enabled = false;
+            this.dataGridStudent.Enabled = false;
             isAddItem = true;
             clearTextBox();
         }
@@ -326,26 +336,13 @@ namespace StudentManagerProject
                     return;
                 }
                 addNewStudent();
-                loadData();
-                this.disableInput();
-                this.btnAdd.Enabled = true;
-                this.btnEdit.Enabled = true;
-                this.btnRemove.Enabled = true;
-                this.btnSave.Enabled = false;
                 isAddItem = false;
-                dataGridStudent.Enabled = true;
             }
             else
             {
                 updateStudent();
-                loadData();
-                this.disableInput();
-                this.btnAdd.Enabled = true;
-                this.btnEdit.Enabled = true;
-                this.btnRemove.Enabled = true;
-                this.btnSave.Enabled = false;
-                dataGridStudent.Enabled = true;
             }
+            this.reloadAfterSave();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -384,6 +381,15 @@ namespace StudentManagerProject
             this.birthdatePicker.Enabled = true;
             this.radMale.Enabled = true;
             this.radFemale.Enabled = true;
+        }
+
+
+        private void CloseForm(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure want to quit ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                Dispose();
+            }
         }
 
     }
